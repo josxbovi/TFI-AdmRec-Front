@@ -6,6 +6,7 @@ import Home from './pages/Home'
 import About from './pages/About'
 import Login from './pages/Login'
 import Dashboard from './pages/Dashboard'
+import ClientPage from './pages/ClientPage'
 import './App.css'
 
 function App() {
@@ -34,10 +35,9 @@ function App() {
               path="/clientes" 
               element={
                 <ProtectedRoute>
-                  <div style={{ padding: '2rem', textAlign: 'center' }}>
-                    <h1>Módulo de Clientes</h1>
-                    <p>En construcción...</p>
-                  </div>
+                  
+                  <ClientPage />
+                  
                 </ProtectedRoute>
               } 
             />
