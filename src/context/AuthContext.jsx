@@ -8,12 +8,20 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    // Verificar si hay un token almacenado al cargar la app
+    // Verificar si hay un usuario almacenado al cargar la app
+    const storedUser = localStorage.getItem('user')
     const token = localStorage.getItem('authToken')
-    if (token) {
-      // Aquí podrías verificar el token con el backend
-      // Por ahora solo marcamos como autenticado
-      setUser({ token })
+    
+    if (token && storedUser) {
+      try {
+        const userData = JSON.parse(storedUser)
+        setUser(userData)
+      } catch (error) {
+        console.error('Error al parsear usuario:', error)
+        // Si hay error, limpiar el storage
+        localStorage.removeItem('user')
+        localStorage.removeItem('authToken')
+      }
     }
     setLoading(false)
   }, [])
@@ -21,7 +29,13 @@ export const AuthProvider = ({ children }) => {
   const login = async (credentials) => {
     try {
       const response = await apiLogin(credentials)
-      setUser(response.user)
+      
+      // Guardar usuario y token
+      if (response.user) {
+        setUser(response.user)
+        localStorage.setItem('user', JSON.stringify(response.user))
+      }
+      
       return response
     } catch (error) {
       throw error
@@ -31,6 +45,7 @@ export const AuthProvider = ({ children }) => {
   const logout = () => {
     apiLogout()
     setUser(null)
+    localStorage.removeItem('user')
   }
 
   const value = {

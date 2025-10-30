@@ -89,13 +89,37 @@ export const deleteItem = async (id) => {
   }
 }
 
-// Funciones de autenticación (ejemplo)
+// ===== AUTENTICACIÓN =====
+
 export const login = async (credentials) => {
   try {
-    const response = await apiClient.post('/auth/login', credentials)
+    // TODO: Cuando tengas el backend, descomentar esta línea:
+    // const response = await apiClient.post('/auth/login', credentials)
+    
+    // TEMPORAL: Simulación de login para desarrollo (BORRAR cuando conectes el backend)
+    console.log('🔐 Intento de login con:', credentials)
+    
+    // Simulamos una respuesta del backend
+    await new Promise(resolve => setTimeout(resolve, 1000)) // Simular delay de red
+    
+    // Respuesta simulada - ESTO SE REEMPLAZARÁ con la respuesta real del backend
+    const response = {
+      success: true,
+      token: 'token-temporal-de-ejemplo-' + Date.now(),
+      user: {
+        id: 1,
+        username: credentials.username,
+        nombre: 'Usuario Demo',
+        email: credentials.username + '@ejemplo.com',
+        rol: 'administrativo'
+      }
+    }
+    
+    // Guardar token
     if (response.token) {
       localStorage.setItem('authToken', response.token)
     }
+    
     return response
   } catch (error) {
     throw error
@@ -104,6 +128,7 @@ export const login = async (credentials) => {
 
 export const logout = () => {
   localStorage.removeItem('authToken')
+  localStorage.removeItem('user')
 }
 
 export default apiClient
