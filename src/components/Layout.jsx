@@ -27,6 +27,9 @@ const Layout = ({ children }) => {
                 <Link to="/dashboard">Dashboard</Link>
               </li>
               <li>
+                <Link to="/usuarios/nuevo">Nuevo Usuario</Link>
+              </li>
+              <li>
                 <Link to="/clientes">Clientes</Link>
               </li>
               <li>

@@ -1,9 +1,11 @@
 import { useAuth } from '../context/AuthContext'
+import { useNavigate } from 'react-router-dom'
 import Card from '../components/Card'
 import './Dashboard.css'
 
 const Dashboard = () => {
   const { user } = useAuth()
+  const navigate = useNavigate()
 
   return (
     <div className="dashboard">
@@ -70,6 +72,13 @@ const Dashboard = () => {
         <div className="dashboard-sidebar">
           <Card title="Accesos Rápidos">
             <div className="quick-actions">
+              <button 
+                className="quick-action-btn"
+                onClick={() => navigate('/usuarios/nuevo')}
+              >
+                <span>👤</span>
+                Nuevo Usuario
+              </button>
               <button className="quick-action-btn">
                 <span>➕</span>
                 Nuevo Cliente
