@@ -1,0 +1,175 @@
+/* Definición de Variables (Colores para tema Oscuro) */
+:root {
+    --color-primary: #3469f9;      /* Púrpura/Violeta para acentos (botones, bordes) */
+    --color-background-dark: #1a1a1a; /* Fondo principal de la tabla (dark) */
+    --color-background-light: #2c2c2c; /* Fondo para hover y elementos claros */
+    --color-text-light: #f0f0f0;      /* Texto de las celdas (claro) */
+    --color-text-gray: #b0b0b0;       /* Texto de las cabeceras/deshabilitado */
+    --color-border: #333333;         /* Borde de separación */
+}
+
+/* ---------------------------------------------------- */
+/* 2. ESTILO GENERAL DE LA TABLA Y CONTENEDOR */
+/* ---------------------------------------------------- */
+.h2-title{
+    padding: 2rem;
+}
+
+.unified-table-container {
+    
+    background-color: #1a1a1a; 
+    border-radius: 8px; 
+    overflow: hidden; 
+    
+    width: 100%; 
+    padding: 24px; 
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse; 
+}
+/* ---------------------------------------------------- */
+/* 1. ESTILO DEL BUSCADOR (Quick Search) */
+/* ---------------------------------------------------- */
+
+/* Estilo del input de búsqueda */
+.unified-search-input {
+    
+    
+    
+    background-color: var(--color-background-dark); 
+    color: var(--color-text-light);
+    border: 1px solid var(--color-primary);
+    border-radius: 10px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    width:70vw;
+    padding-left: 40px !important; 
+}
+
+.search-container{
+    width:100%;
+    display:flex;
+    justify-content:space-around;
+
+}
+.unified-search-input:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(138, 43, 226, 0.4); 
+}
+
+.unified-table-container .relative .text-gray-400 {
+    color: var(--color-text-gray) !important;
+}
+
+/* ---------------------------------------------------- */
+/* 3. ESTILO DE LA TABLA (THEAD y TBODY) */
+/* ---------------------------------------------------- */
+
+.unified-table-container table {
+    /* Resetear el fondo de la tabla interna a transparente o dark */
+    background-color: transparent; 
+}
+
+/* Estilo de las Cabeceras (THEAD) */
+.unified-table-container thead th {
+    
+    color: var(--color-text-gray); 
+    font-size: 14px;
+    font-weight: 500;
+    padding-top: 14px;
+    padding-bottom: 14px;
+    
+    border-bottom: 1px solid var(--color-border);
+}
+
+.unified-table-container thead th:hover {
+    background-color: var(--color-background-light);
+}
+
+/* Iconos de Ordenamiento */
+.unified-table-container thead th svg {
+    color: var(--color-primary); /* Iconos púrpura */
+}
+
+/* Estilo de las Filas (TBODY) */
+.unified-table-container tbody tr {
+    transition: background-color 0.15s;
+    border-bottom: 1px solid var(--color-border); /* Separación sutil */
+}
+
+.unified-table-container tbody tr:hover {
+    background-color: var(--color-background-light); /* Resaltar fila al pasar el mouse */
+}
+
+.unified-table-container tbody td {
+    
+    font-size: 14px;
+    color: var(--color-text-light); /* Texto claro */
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+/* Links dentro de las celdas */
+.unified-table-container tbody td a {
+    color: var(--color-primary); /* Links púrpura */
+    text-decoration: none;
+}
+
+.unified-table-container tbody td a:hover {
+    text-decoration: underline;
+}
+
+/* Ícono de Editar (Adaptado al fondo oscuro) */
+.unified-table-container tbody td button {
+    color: var(--color-text-gray);
+    transition: color 0.2s;
+}
+
+.unified-table-container tbody td button:hover {
+    color: var(--color-primary);
+}
+
+
+/* ---------------------------------------------------- */
+/* 4. ESTILO DE LA PAGINACIÓN */
+/* ---------------------------------------------------- */
+
+/* Botones de paginación (general) */
+.pagination-button {
+   
+    border: 1px solid var(--color-border) !important;
+    border-radius: 4px;
+    min-width: 32px;
+    font-weight: 500;
+    color: var(--color-text-gray);
+    background-color: transparent;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+    cursor: pointer;
+}
+
+.pagination-button:not(.active):not(:disabled):hover {
+    background-color: var(--color-background-light);
+    border-color: var(--color-primary);
+    color: var(--color-text-light);
+}
+
+.pagination-button:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+    color: var(--color-border);
+}
+
+/* Botón Activo (Número de página actual) */
+.pagination-button.active {
+    background-color: var(--color-primary) !important;
+    color: white !important;
+    border-color: var(--color-primary) !important;
+}
+
+/* Texto de "..." */
+.page-separator {
+    color: var(--color-text-gray);
+    padding: 0 4px;
+}
