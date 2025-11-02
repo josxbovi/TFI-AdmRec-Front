@@ -79,6 +79,13 @@ const Dashboard = () => {
                 <span>👤</span>
                 Nuevo Usuario
               </button>
+              <button 
+                className="quick-action-btn"
+                onClick={() => navigate('/proyectos/nuevo')}
+              >
+                <span>📁</span>
+                Nuevo Proyecto
+              </button>
               <button className="quick-action-btn">
                 <span>➕</span>
                 Nuevo Cliente

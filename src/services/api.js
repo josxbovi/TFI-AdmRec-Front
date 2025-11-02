@@ -188,6 +188,232 @@ export const deleteRole = async (id) => {
   }
 }
 
+// ===== CLIENTES =====
+
+export const getAllClientes = async () => {
+  try {
+    const response = await apiClient.get('/cliente')
+    return response
+  } catch (error) {
+    throw error
+  }
+}
+
+export const getClienteById = async (id) => {
+  try {
+    const response = await apiClient.get(`/cliente/${id}`)
+    return response
+  } catch (error) {
+    throw error
+  }
+}
+
+ export const getClienteByCuit = async (cuit) => {
+  try {
+    const response = await apiClient.get(`/cliente/${cuit}`)
+    return response
+  } catch (error) {
+    throw error
+  }
+}
+
+export const createCliente = async (clienteData) => {
+  try {
+    const response = await apiClient.post('/cliente/crear', clienteData)
+    return response
+  } catch (error) {
+    throw error
+  }
+}
+
+export const updateCliente = async (id, clienteData) => {
+  try {
+    const response = await apiClient.patch(`/cliente/${id}`, clienteData)
+    return response
+  } catch (error) {
+    throw error
+  }
+}
+
+export const deleteCliente = async (id) => {
+  try {
+    const response = await apiClient.delete(`/cliente/${id}`)
+    return response
+  } catch (error) {
+    throw error
+  }
+}
+
+// ===== PROYECTOS =====
+
+export const getAllProyectos = async () => {
+  try {
+    const response = await apiClient.get('/proyecto')
+    return response
+  } catch (error) {
+    throw error
+  }
+}
+
+export const createProyecto = async (proyectoData) => {
+  try {
+    const response = await apiClient.post('/proyecto/crear', proyectoData)
+    return response
+  } catch (error) {
+    throw error
+  }
+}
+
+export const updateProyecto = async (id, proyectoData) => {
+  try {
+    const response = await apiClient.patch(`/proyecto/${id}`, proyectoData)
+    return response
+  } catch (error) {
+    throw error
+  }
+}
+
+export const deleteProyecto = async (id) => {
+  try {
+    const response = await apiClient.delete(`/proyecto/${id}`)
+    return response
+  } catch (error) {
+    throw error
+  }
+}
+
+// ===== ALERTAS =====
+
+export const getAllAlertas = async () => {
+  try {
+    const response = await apiClient.get('/alerta')
+    return response
+  } catch (error) {
+    throw error
+  }
+}
+
+export const getAlertaById = async (id) => {
+  try {
+    const response = await apiClient.get(`/alerta/${id}`)
+    return response
+  } catch (error) {
+    throw error
+  }
+}
+
+export const createAlerta = async (alertaData) => {
+  try {
+    const response = await apiClient.post('/alerta/crear', alertaData)
+    return response
+  } catch (error) {
+    throw error
+  }
+}
+
+export const updateAlerta = async (id, alertaData) => {
+  try {
+    const response = await apiClient.patch(`/alerta/${id}`, alertaData)
+    return response
+  } catch (error) {
+    throw error
+  }
+}
+
+export const deleteAlerta = async (id) => {
+  try {
+    const response = await apiClient.delete(`/alerta/${id}`)
+    return response
+  } catch (error) {
+    throw error
+  }
+}
+
+// ===== FACTURAS =====
+
+export const getAllFacturas = async () => {
+  try {
+    const response = await apiClient.get('/factura')
+    return response
+  } catch (error) {
+    throw error
+  }
+}
+
+export const getFacturaById = async (id) => {
+  try {
+    const response = await apiClient.get(`/factura/${id}`)
+    return response
+  } catch (error) {
+    throw error
+  }
+}
+
+export const getFacturaPDF = async (id) => {
+  try {
+    const response = await apiClient.get(`/factura/${id}/pdf`)
+    return response
+  } catch (error) {
+    throw error
+  }
+}
+
+export const createFactura = async (facturaData) => {
+  try {
+    const response = await apiClient.post('/factura/crear', facturaData)
+    return response
+  } catch (error) {
+    throw error
+  }
+}
+
+// ===== CONTRATOS =====
+
+export const getAllContratos = async () => {
+  try {
+    const response = await apiClient.get('/contrato')
+    return response
+  } catch (error) {
+    throw error
+  }
+}
+
+export const getContratoById = async (id) => {
+  try {
+    const response = await apiClient.get(`/contrato/${id}`)
+    return response
+  } catch (error) {
+    throw error
+  }
+}
+
+export const createContrato = async (contratoData) => {
+  try {
+    const response = await apiClient.post('/contrato/crear', contratoData)
+    return response
+  } catch (error) {
+    throw error
+  }
+}
+
+export const updateContrato = async (id, contratoData) => {
+  try {
+    const response = await apiClient.patch(`/contrato/${id}`, contratoData)
+    return response
+  } catch (error) {
+    throw error
+  }
+}
+
+export const deleteContrato = async (id) => {
+  try {
+    const response = await apiClient.delete(`/contrato/${id}`)
+    return response
+  } catch (error) {
+    throw error
+  }
+}
+
 // ===== AUTENTICACIÓN =====
 
 export const login = async (credentials) => {
