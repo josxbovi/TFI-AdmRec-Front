@@ -8,6 +8,7 @@ import Login from './pages/Login'
 import Dashboard from './pages/Dashboard'
 import ClientPage from './pages/ClientPage'
 import NuevoUsuario from './pages/NuevoUsuario'
+import NuevoProyecto from './pages/NuevoProyecto'
 import './App.css'
 
 function App() {
@@ -36,6 +37,15 @@ function App() {
               element={
                 <ProtectedRoute>
                   <NuevoUsuario />
+                </ProtectedRoute>
+              } 
+            />
+            
+            <Route 
+              path="/proyectos/nuevo" 
+              element={
+                <ProtectedRoute>
+                  <NuevoProyecto />
                 </ProtectedRoute>
               } 
             />

@@ -14,7 +14,7 @@ const NuevoUsuario = () => {
   const [formData, setFormData] = useState({
     user_name: '',
     password: '',
-    institucionId: ''
+    rolId: ''
   })
   
   // Estados para roles
@@ -89,7 +89,7 @@ const NuevoUsuario = () => {
       return false
     }
 
-    if (!formData.institucionId) {
+    if (!formData.rolId) {
       setError('Debes seleccionar un rol')
       return false
     }
@@ -109,10 +109,10 @@ const NuevoUsuario = () => {
     setError('')
 
     try {
-      // Convertir institucionId a número
+      // Convertir rolId a número
       const userData = {
         ...formData,
-        institucionId: Number(formData.institucionId)
+        rolId: Number(formData.rolId)
       }
 
       await createUser(userData)
@@ -201,13 +201,13 @@ const NuevoUsuario = () => {
               </div>
 
               <div className="form-group">
-                <label htmlFor="institucionId">
+                <label htmlFor="rolId">
                   Rol <span className="required">*</span>
                 </label>
                 <select
-                  id="institucionId"
-                  name="institucionId"
-                  value={formData.institucionId}
+                  id="rolId"
+                  name="rolId"
+                  value={formData.rolId}
                   onChange={handleChange}
                   disabled={loading}
                   className="form-select"
