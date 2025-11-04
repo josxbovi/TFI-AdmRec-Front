@@ -1,0 +1,32 @@
+/* src/pages/NuevoCliente.css */
+.nuevo-cliente-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  background-color: #f8fafc; /* Cool Gray 50 */
+  min-height: 100vh;
+}
+
+.nuevo-cliente-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.nuevo-cliente-header h1 {
+  font-size: 2.25rem;
+  color: #1e293b; /* Cool Gray 800 */
+}
+
+.nuevo-cliente-header p {
+  font-size: 1.125rem;
+  color: #475569; /* Cool Gray 600 */
+  margin-top: 0.5rem;
+}
+
+.form-container {
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  justify-content: center;
+}

@@ -10,7 +10,7 @@ const Dashboard = () => {
   return (
     <div className="dashboard">
       <div className="dashboard-header">
-        <h1>¡Bienvenido, {user?.nombre || user?.username || 'Usuario'}!</h1>
+        <h1>¡Bienvenido, {user?.nombre || user?.username || "Usuario"}!</h1>
         <p>Panel de control - Sistema de Gestión de Clientes</p>
       </div>
 
@@ -72,21 +72,24 @@ const Dashboard = () => {
         <div className="dashboard-sidebar">
           <Card title="Accesos Rápidos">
             <div className="quick-actions">
-              <button 
+              <button
                 className="quick-action-btn"
-                onClick={() => navigate('/usuarios/nuevo')}
+                onClick={() => navigate("/usuarios/nuevo")}
               >
                 <span>👤</span>
                 Nuevo Usuario
               </button>
-              <button 
+              <button
                 className="quick-action-btn"
-                onClick={() => navigate('/proyectos/nuevo')}
+                onClick={() => navigate("/proyectos/nuevo")}
               >
                 <span>📁</span>
                 Nuevo Proyecto
               </button>
-              <button className="quick-action-btn">
+              <button
+                className="quick-action-btn"
+                onClick={() => navigate("/clientes/nuevo")}
+              >
                 <span>➕</span>
                 Nuevo Cliente
               </button>
@@ -116,7 +119,7 @@ const Dashboard = () => {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 export default Dashboard
