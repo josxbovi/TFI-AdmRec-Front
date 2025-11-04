@@ -1,10 +1,45 @@
-// src/pages/ClientPage.jsx (o ProjectsPage.jsx, etc.)
+// src/pages/ClientPage.jsx
 
 import React from "react";
+import { Link } from "react-router-dom";
 import { UnifiedTable } from "../components/UnifiedTable";
-import { clientColumns } from "../utils/tableConfigs"; // Importa las columnas de clientes
 
-// Datos de ejemplo (normalmente vendrían de una API)
+// Column definitions are now inside the component for better co-location
+const clientColumns = [
+    {
+        accessorKey: "nombre",
+        header: "Nombre",
+        enableSorting: true,
+    },
+    {
+        accessorKey: "cuit",
+        header: "CUIT",
+        enableSorting: true,
+    },
+    {
+        accessorKey: "telefono",
+        header: "Teléfono",
+    },
+    {
+        accessorKey: "email",
+        header: "Email",
+        enableSorting: true,
+    },
+    {
+        id: 'actions',
+        header: "Acciones",
+        cell: ({ row }) => (
+            <Link 
+                to={`/clientes/${row.original.id}`} 
+                className="text-blue-600 hover:underline"
+            >
+                Ver Detalle
+            </Link>
+        ),
+    },
+];
+
+// Mock data remains the same
 const MOCK_CLIENT_DATA = [
   {
     id: 1,
@@ -86,7 +121,6 @@ const MOCK_CLIENT_DATA = [
     email: "kappa@example.net",
     proyectos: 9,
   },
-  // Agrega más datos para ver la paginación
   {
     id: 11,
     nombre: "Local Lambda",
@@ -108,19 +142,11 @@ const MOCK_CLIENT_DATA = [
 const ClientPage = () => {
   return (
     <div>
-      {/* Usar el componente de tabla unificado */}
       <UnifiedTable
         data={MOCK_CLIENT_DATA}
-        columns={clientColumns} // Le pasamos la configuración de columnas de clientes
-        tableTitle="Clientes" // El título para el h2
+        columns={clientColumns}
+        tableTitle="Clientes"
       />
-      {/* Si tuvieras una página de proyectos, sería:
-      <UnifiedTable
-        data={MOCK_PROJECT_DATA}
-        columns={projectColumns} // Le pasamos la configuración de columnas de proyectos
-        tableTitle="Proyectos"
-      />
-      */}
     </div>
   );
 };
