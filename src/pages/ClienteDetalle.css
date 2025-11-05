@@ -1,0 +1,102 @@
+.cliente-detalle-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.detalle-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.detalle-header h1 {
+    color: #2c3e50;
+    font-size: 2rem;
+    margin: 0;
+}
+
+.cliente-info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    padding: 1rem 0;
+}
+
+.info-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.info-label {
+    font-weight: 600;
+    color: #7f8c8d;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.info-value {
+    color: #2c3e50;
+    font-size: 1.1rem;
+}
+
+/* Estado badges */
+.estado-badge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: capitalize;
+}
+
+.estado-badge.activo {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.estado-badge.inactivo {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+/* Empty state */
+.empty-state {
+    text-align: center;
+    padding: 3rem 2rem;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+}
+
+.empty-state p {
+    font-size: 1.1rem;
+    color: #6c757d;
+    margin: 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .cliente-detalle-container {
+        padding: 1rem;
+    }
+
+    .detalle-header {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: flex-start;
+    }
+
+    .detalle-header h1 {
+        font-size: 1.5rem;
+    }
+
+    .cliente-info-grid {
+        grid-template-columns: 1fr;
+    }
+}

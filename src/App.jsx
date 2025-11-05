@@ -7,8 +7,10 @@ import About from './pages/About'
 import Login from './pages/Login'
 import Dashboard from './pages/Dashboard'
 import ClientPage from './pages/ClientPage'
+import ClienteDetalle from './pages/ClienteDetalle'
 import NuevoUsuario from './pages/NuevoUsuario'
 import NuevoProyecto from './pages/NuevoProyecto'
+import NuevoCliente from './pages/NuevoCliente'
 import './App.css'
 
 function App() {
@@ -49,15 +51,31 @@ function App() {
                 </ProtectedRoute>
               } 
             />
+
+            <Route 
+              path="/clientes/nuevo" 
+              element={
+                <ProtectedRoute>
+                  <NuevoCliente />
+                </ProtectedRoute>
+              } 
+            />
             
             {/* Rutas de módulos (protegidas) - placeholder por ahora */}
             <Route 
               path="/clientes" 
               element={
                 <ProtectedRoute>
-                  
                   <ClientPage />
-                  
+                </ProtectedRoute>
+              } 
+            />
+            
+            <Route 
+              path="/clientes/:id" 
+              element={
+                <ProtectedRoute>
+                  <ClienteDetalle />
                 </ProtectedRoute>
               } 
             />
