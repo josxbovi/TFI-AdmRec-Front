@@ -7,6 +7,7 @@ import About from './pages/About'
 import Login from './pages/Login'
 import Dashboard from './pages/Dashboard'
 import ClientPage from './pages/ClientPage'
+import ClienteDetalle from './pages/ClienteDetalle'
 import NuevoUsuario from './pages/NuevoUsuario'
 import NuevoProyecto from './pages/NuevoProyecto'
 import NuevoCliente from './pages/NuevoCliente'
@@ -65,9 +66,16 @@ function App() {
               path="/clientes" 
               element={
                 <ProtectedRoute>
-                  
                   <ClientPage />
-                  
+                </ProtectedRoute>
+              } 
+            />
+            
+            <Route 
+              path="/clientes/:id" 
+              element={
+                <ProtectedRoute>
+                  <ClienteDetalle />
                 </ProtectedRoute>
               } 
             />

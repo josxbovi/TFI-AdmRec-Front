@@ -39,16 +39,29 @@
   color: #334155; /* Cool Gray 700 */
 }
 
-.form-group input {
+.form-group label .required {
+  color: #e74c3c;
+  margin-left: 0.25rem;
+}
+
+.form-group input,
+.form-group select {
   padding: 0.75rem 1rem;
   border: 1px solid #cbd5e1; /* Cool Gray 300 */
   border-radius: 6px;
   font-size: 1rem;
-  color: #1e293b; /* Cool Gray 800 */
+  color: #000000 !important; /* Text negro forzado */
+  -webkit-text-fill-color: #000000 !important;
+  background-color: #fff;
   transition: border-color 0.2s, box-shadow 0.2s;
 }
 
-.form-group input:focus {
+.form-group select {
+  cursor: pointer;
+}
+
+.form-group input:focus,
+.form-group select:focus {
   outline: none;
   border-color: #2563eb; /* Blue 600 */
   box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25);
