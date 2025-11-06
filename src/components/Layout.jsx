@@ -3,7 +3,7 @@ import { useAuth } from '../context/AuthContext'
 import './Layout.css'
 
 const Layout = ({ children }) => {
-  const { user, isAuthenticated, logout } = useAuth()
+  const { user, isAuthenticated, isAdmin, logout } = useAuth()
   const navigate = useNavigate()
 
   const handleLogout = () => {
@@ -26,9 +26,12 @@ const Layout = ({ children }) => {
               <li>
                 <Link to="/dashboard">Dashboard</Link>
               </li>
-              <li>
-                <Link to="/usuarios/nuevo">Nuevo Usuario</Link>
-              </li>
+              {/* Solo administradores pueden ver "Nuevo Usuario" */}
+              {isAdmin() && (
+                <li>
+                  <Link to="/usuarios/nuevo">Nuevo Usuario</Link>
+                </li>
+              )}
               <li>
                 <Link to="/proyectos/nuevo">Nuevo Proyecto</Link>
               </li>
@@ -39,14 +42,20 @@ const Layout = ({ children }) => {
                 <Link to="/contratos">Contratos</Link>
               </li>
               <li>
-                <Link to="/facturas">Facturas</Link>
+                <Link to="/contratos/nuevo">Nuevo Contrato</Link>
               </li>
               <li>
-                <Link to="/reportes">Reportes</Link>
+                <Link to="/facturas/nuevo">Nueva Factura</Link>
               </li>
+              {/* Solo administradores pueden ver reportes */}
+              {isAdmin() && (
+                <li>
+                  <Link to="/reportes">Reportes</Link>
+                </li>
+              )}
               <li className="user-menu">
                 <span className="user-info">
-                  👤 {user?.nombre || user?.username || 'Usuario'}
+                  👤 {user?.user_name || user?.nombre || 'Usuario'}
                 </span>
                 <button className="btn-logout" onClick={handleLogout}>
                   Cerrar Sesión

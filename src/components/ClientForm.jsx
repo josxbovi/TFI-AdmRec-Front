@@ -10,10 +10,25 @@ const ClientForm = ({ onSubmit, isLoading }) => {
     direccion: '',
     cuit: '',
     estado: 'activo',
+    descuento: 0,
   });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+    
+    // Validar descuento entre 0 y 100
+    if (name === 'descuento') {
+      const numValue = parseFloat(value);
+      if (numValue < 0) {
+        setFormData((prev) => ({ ...prev, [name]: 0 }));
+        return;
+      }
+      if (numValue > 100) {
+        setFormData((prev) => ({ ...prev, [name]: 100 }));
+        return;
+      }
+    }
+    
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
@@ -120,6 +135,27 @@ const ClientForm = ({ onSubmit, isLoading }) => {
             <option value="activo">Activo</option>
             <option value="inactivo">Inactivo</option>
           </select>
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="descuento">
+            Descuento (%) 🎁
+          </label>
+          <input
+            type="number"
+            id="descuento"
+            name="descuento"
+            value={formData.descuento}
+            onChange={handleChange}
+            placeholder="Ej: 10"
+            min="0"
+            max="100"
+            step="0.01"
+            disabled={isLoading}
+          />
+          <small className="form-hint">
+            Descuento permanente para este cliente (0-100%)
+          </small>
         </div>
       </div>
 

@@ -4,13 +4,13 @@ import Card from '../components/Card'
 import './Dashboard.css'
 
 const Dashboard = () => {
-  const { user } = useAuth()
+  const { user, isAdmin } = useAuth()
   const navigate = useNavigate()
 
   return (
     <div className="dashboard">
       <div className="dashboard-header">
-        <h1>¡Bienvenido, {user?.nombre || user?.username || "Usuario"}!</h1>
+        <h1>¡Bienvenido, {user?.user_name || user?.nombre || "Usuario"}!</h1>
         <p>Panel de control - Sistema de Gestión de Clientes</p>
       </div>
 
@@ -72,13 +72,16 @@ const Dashboard = () => {
         <div className="dashboard-sidebar">
           <Card title="Accesos Rápidos">
             <div className="quick-actions">
-              <button
-                className="quick-action-btn"
-                onClick={() => navigate("/usuarios/nuevo")}
-              >
-                <span>👤</span>
-                Nuevo Usuario
-              </button>
+              {/* Solo administradores pueden crear usuarios */}
+              {isAdmin() && (
+                <button
+                  className="quick-action-btn"
+                  onClick={() => navigate("/usuarios/nuevo")}
+                >
+                  <span>👤</span>
+                  Nuevo Usuario
+                </button>
+              )}
               <button
                 className="quick-action-btn"
                 onClick={() => navigate("/proyectos/nuevo")}
@@ -93,18 +96,30 @@ const Dashboard = () => {
                 <span>➕</span>
                 Nuevo Cliente
               </button>
-              <button className="quick-action-btn">
-                <span>📝</span>
-                Nueva Factura
-              </button>
-              <button className="quick-action-btn">
+              <button
+                className="quick-action-btn"
+                onClick={() => navigate("/contratos/nuevo")}
+              >
                 <span>📄</span>
                 Nuevo Contrato
               </button>
-              <button className="quick-action-btn">
-                <span>📊</span>
-                Ver Reportes
+              <button
+                className="quick-action-btn"
+                onClick={() => navigate("/facturas/nuevo")}
+              >
+                <span>📝</span>
+                Nueva Factura
               </button>
+              {/* Solo administradores pueden ver reportes */}
+              {isAdmin() && (
+                <button
+                  className="quick-action-btn"
+                  onClick={() => navigate("/reportes")}
+                >
+                  <span>📊</span>
+                  Ver Reportes
+                </button>
+              )}
             </div>
           </Card>
 

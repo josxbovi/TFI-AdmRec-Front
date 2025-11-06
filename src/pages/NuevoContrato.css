@@ -1,0 +1,351 @@
+.nuevo-contrato {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.nuevo-contrato-header {
+  margin-bottom: 2rem;
+}
+
+.nuevo-contrato-header h1 {
+  font-size: 2rem;
+  color: #1a1a1a;
+  margin: 0 0 0.5rem 0;
+}
+
+.nuevo-contrato-header p {
+  color: #666;
+  margin: 0;
+  font-size: 1rem;
+}
+
+.nuevo-contrato-content {
+  width: 100%;
+}
+
+/* Buscar cliente */
+.buscar-cliente-section {
+  margin-bottom: 2rem;
+}
+
+.buscar-cliente-section h3 {
+  font-size: 1.25rem;
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.section-hint {
+  color: #666;
+  font-size: 0.95rem;
+  margin-bottom: 1rem;
+}
+
+.buscar-cliente-form {
+  margin-top: 1rem;
+}
+
+.input-with-button {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.input-with-button input {
+  flex: 1;
+}
+
+.input-with-button button {
+  flex-shrink: 0;
+}
+
+/* Cliente encontrado */
+.cliente-encontrado {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  margin-bottom: 2rem;
+}
+
+.cliente-encontrado h3 {
+  font-size: 1.25rem;
+  margin: 0 0 1rem 0;
+}
+
+.cliente-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.info-row {
+  font-size: 1rem;
+}
+
+.info-row strong {
+  font-weight: 600;
+  margin-right: 0.5rem;
+}
+
+/* Formulario */
+.contrato-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 2px solid #f0f0f0;
+}
+
+.contrato-form h3 {
+  font-size: 1.25rem;
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-group label {
+  font-weight: 600;
+  color: #333;
+  font-size: 0.95rem;
+}
+
+.form-group .required {
+  color: #e74c3c;
+}
+
+.form-input {
+  padding: 0.75rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  background-color: #ffffff;
+  color: #000000 !important;
+  -webkit-text-fill-color: #000000 !important;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.form-input:disabled {
+  background-color: #f5f5f5;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.form-hint {
+  font-size: 0.85rem;
+  color: #666;
+}
+
+/* Fila de formulario (para fechas lado a lado) */
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+/* Select */
+select.form-input {
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23333' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  padding-right: 2.5rem;
+}
+
+/* Acciones */
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  padding-top: 1.5rem;
+  border-top: 2px solid #f0f0f0;
+  margin-top: 1rem;
+}
+
+/* Alertas */
+.alert {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  animation: slideIn 0.3s ease;
+}
+
+.alert span {
+  font-size: 1.5rem;
+}
+
+.alert p {
+  margin: 0;
+  font-weight: 500;
+}
+
+.alert-success {
+  background: #d4edda;
+  border: 1px solid #c3e6cb;
+  color: #155724;
+}
+
+/* Asegurar texto negro */
+.nuevo-contrato input,
+.nuevo-contrato textarea,
+.nuevo-contrato select,
+.nuevo-contrato input[type="text"],
+.nuevo-contrato input[type="date"],
+.nuevo-contrato input[type="number"] {
+  color: #000000 !important;
+  -webkit-text-fill-color: #000000 !important;
+}
+
+/* Animaciones */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .nuevo-contrato {
+    padding: 1rem;
+  }
+
+  .nuevo-contrato-header h1 {
+    font-size: 1.5rem;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .input-with-button {
+    flex-direction: column;
+  }
+
+  .input-with-button button {
+    width: 100%;
+  }
+
+  .form-actions {
+    flex-direction: column;
+  }
+
+  .form-actions button {
+    width: 100%;
+  }
+
+  .calculo-row {
+    font-size: 0.9rem;
+  }
+
+  .total-row {
+    font-size: 1rem;
+  }
+
+  .monto-final {
+    font-size: 1.1rem;
+  }
+}
+
+/* Descuento info */
+.descuento-info {
+  color: #27ae60 !important;
+  font-weight: 600;
+  background-color: #d4edda;
+  padding: 0.75rem;
+  border-radius: 6px;
+  border-left: 4px solid #27ae60;
+}
+
+/* Cálculo de descuento */
+.descuento-calculo {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  border: 2px solid #e0e0e0;
+}
+
+.descuento-calculo h4 {
+  margin: 0 0 1rem 0;
+  color: #2c3e50;
+  font-size: 1.1rem;
+}
+
+.calculo-detalle {
+  background-color: #ffffff;
+  padding: 1rem;
+  border-radius: 6px;
+}
+
+.calculo-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 0;
+  font-size: 1rem;
+}
+
+.calculo-row span:first-child {
+  color: #34495e;
+}
+
+.monto-original {
+  color: #2c3e50;
+  font-weight: 500;
+}
+
+.descuento-row {
+  color: #27ae60;
+}
+
+.monto-descuento {
+  color: #27ae60;
+  font-weight: 600;
+}
+
+.calculo-separator {
+  border-top: 2px solid #e0e0e0;
+  margin: 0.5rem 0;
+}
+
+.total-row {
+  padding-top: 1rem;
+  font-size: 1.2rem;
+}
+
+.monto-final {
+  color: #4a90e2;
+  font-size: 1.3rem;
+}
+
+.descuento-nota {
+  margin: 1rem 0 0 0;
+  padding: 0.75rem;
+  background-color: #e8f4f8;
+  border-left: 4px solid #4a90e2;
+  color: #2c3e50;
+  font-size: 0.9rem;
+  border-radius: 4px;
+}
+

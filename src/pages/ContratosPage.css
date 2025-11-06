@@ -1,0 +1,96 @@
+.contratos-page {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.contratos-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.contratos-header h1 {
+  font-size: 2rem;
+  color: #1a1a1a;
+  margin: 0 0 0.5rem 0;
+}
+
+.contratos-header p {
+  color: #666;
+  margin: 0;
+  font-size: 1rem;
+}
+
+/* Estados de contratos */
+.estado-badge {
+  display: inline-block;
+  padding: 0.35rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.estado-badge.activo {
+  background: #d4edda;
+  color: #155724;
+}
+
+.estado-badge.vencido {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+.estado-badge.cancelado,
+.estado-badge.inactivo {
+  background: #e2e3e5;
+  color: #383d41;
+}
+
+.estado-badge.pendiente {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.estado-badge.desconocido {
+  background: #f0f0f0;
+  color: #666;
+}
+
+/* Empty state */
+.empty-state {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: #666;
+}
+
+.empty-state p {
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.empty-state small {
+  font-size: 0.95rem;
+  color: #999;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .contratos-page {
+    padding: 1rem;
+  }
+
+  .contratos-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .contratos-header h1 {
+    font-size: 1.5rem;
+  }
+}
+

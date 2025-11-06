@@ -28,7 +28,13 @@ apiClient.interceptors.request.use(
 // Interceptor para manejar respuestas y errores
 apiClient.interceptors.response.use(
   (response) => {
-    // Retornar toda la respuesta para manejar diferentes formatos
+    // Si es un blob (PDF, imagen, etc.), no intentar loggearlo
+    if (response.data instanceof Blob) {
+      console.log('📡 Respuesta del API (Blob):', response.config.url, `Blob de ${response.data.size} bytes`)
+      return response.data
+    }
+    
+    // Para respuestas JSON normales
     console.log('📡 Respuesta del API:', response.config.url, response.data)
     return response.data
   },
@@ -145,9 +151,12 @@ export const deleteUser = async (id) => {
 
 export const getAllRoles = async () => {
   try {
+    console.log('🔍 Solicitando roles desde:', `${API_URL}/rol`)
     const response = await apiClient.get('/rol')
+    console.log('✅ Respuesta de roles:', response)
     return response
   } catch (error) {
+    console.error('❌ Error al obtener roles:', error)
     throw error
   }
 }
@@ -210,7 +219,7 @@ export const getClienteById = async (id) => {
 
  export const getClienteByCuit = async (cuit) => {
   try {
-    const response = await apiClient.get(`/cliente/${cuit}`)
+    const response = await apiClient.get(`/cliente/cuit/${cuit}`)
     return response
   } catch (error) {
     throw error
@@ -255,6 +264,17 @@ export const getAllProyectos = async () => {
   }
 }
 
+export const getProyectoById = async (id) => {
+  try {
+    const response = await apiClient.get(`/proyecto/${id}`)
+    console.log('✅ Proyecto obtenido:', response)
+    return response
+  } catch (error) {
+    console.error('❌ Error al obtener proyecto:', error)
+    throw error
+  }
+}
+
 export const createProyecto = async (proyectoData) => {
   try {
     const response = await apiClient.post('/proyecto/crear', proyectoData)
@@ -266,9 +286,14 @@ export const createProyecto = async (proyectoData) => {
 
 export const updateProyecto = async (id, proyectoData) => {
   try {
+    console.log('🔄 Actualizando proyecto:', { id, proyectoData })
     const response = await apiClient.patch(`/proyecto/${id}`, proyectoData)
+    console.log('✅ Proyecto actualizado:', response)
     return response
   } catch (error) {
+    console.error('❌ Error al actualizar proyecto:', error)
+    console.error('❌ Datos enviados:', proyectoData)
+    console.error('❌ Response del error:', error.response)
     throw error
   }
 }
@@ -351,18 +376,51 @@ export const getFacturaById = async (id) => {
 
 export const getFacturaPDF = async (id) => {
   try {
-    const response = await apiClient.get(`/factura/${id}/pdf`)
+    console.log('📥 Solicitando PDF de factura:', id)
+    // Importante: responseType 'blob' para archivos binarios
+    const response = await apiClient.get(`/factura/${id}/pdf`, {
+      responseType: 'blob'
+    })
+    console.log('✅ PDF recibido:', response)
     return response
   } catch (error) {
+    console.error('❌ Error al obtener PDF:', error)
     throw error
   }
 }
 
 export const createFactura = async (facturaData) => {
   try {
+    console.log('📄 Creando factura:', facturaData)
     const response = await apiClient.post('/factura/crear', facturaData)
+    console.log('✅ Factura creada:', response)
     return response
   } catch (error) {
+    console.error('❌ Error al crear factura:', error)
+    throw error
+  }
+}
+
+export const updateFactura = async (id, facturaData) => {
+  try {
+    console.log('🔄 Actualizando factura:', { id, facturaData })
+    const response = await apiClient.patch(`/factura/${id}`, facturaData)
+    console.log('✅ Factura actualizada:', response)
+    return response
+  } catch (error) {
+    console.error('❌ Error al actualizar factura:', error)
+    throw error
+  }
+}
+
+export const deleteFactura = async (id) => {
+  try {
+    console.log('🗑️ Eliminando factura:', id)
+    const response = await apiClient.delete(`/factura/${id}`)
+    console.log('✅ Factura eliminada')
+    return response
+  } catch (error) {
+    console.error('❌ Error al eliminar factura:', error)
     throw error
   }
 }
@@ -371,45 +429,61 @@ export const createFactura = async (facturaData) => {
 
 export const getAllContratos = async () => {
   try {
+    console.log('🔍 Obteniendo todos los contratos')
     const response = await apiClient.get('/contrato')
+    console.log('✅ Contratos obtenidos:', response)
     return response
   } catch (error) {
+    console.error('❌ Error al obtener contratos:', error)
     throw error
   }
 }
 
 export const getContratoById = async (id) => {
   try {
+    console.log('🔍 Obteniendo contrato por ID:', id)
     const response = await apiClient.get(`/contrato/${id}`)
+    console.log('✅ Contrato obtenido:', response)
     return response
   } catch (error) {
+    console.error('❌ Error al obtener contrato:', error)
     throw error
   }
 }
 
 export const createContrato = async (contratoData) => {
   try {
+    console.log('📝 Creando contrato:', contratoData)
     const response = await apiClient.post('/contrato/crear', contratoData)
+    console.log('✅ Contrato creado:', response)
     return response
   } catch (error) {
+    console.error('❌ Error al crear contrato:', error)
     throw error
   }
 }
 
 export const updateContrato = async (id, contratoData) => {
   try {
+    console.log('🔄 Actualizando contrato:', { id, contratoData })
     const response = await apiClient.patch(`/contrato/${id}`, contratoData)
+    console.log('✅ Contrato actualizado:', response)
     return response
   } catch (error) {
+    console.error('❌ Error al actualizar contrato:', error)
+    console.error('❌ Datos enviados:', contratoData)
     throw error
   }
 }
 
 export const deleteContrato = async (id) => {
   try {
+    console.log('🗑️ Eliminando contrato:', id)
     const response = await apiClient.delete(`/contrato/${id}`)
+    console.log('✅ Contrato eliminado')
     return response
   } catch (error) {
+    console.error('❌ Error al eliminar contrato:', error)
     throw error
   }
 }
@@ -418,35 +492,43 @@ export const deleteContrato = async (id) => {
 
 export const login = async (credentials) => {
   try {
-    // TODO: Cuando tengas el backend, descomentar esta línea:
-    // const response = await apiClient.post('/auth/login', credentials)
-    
-    // TEMPORAL: Simulación de login para desarrollo (BORRAR cuando conectes el backend)
     console.log('🔐 Intento de login con:', credentials)
     
-    // Simulamos una respuesta del backend
-    await new Promise(resolve => setTimeout(resolve, 1000)) // Simular delay de red
-    
-    // Respuesta simulada - ESTO SE REEMPLAZARÁ con la respuesta real del backend
-    const response = {
-      success: true,
-      token: 'token-temporal-de-ejemplo-' + Date.now(),
-      user: {
-        id: 1,
-        username: credentials.username,
-        nombre: 'Usuario Demo',
-        email: credentials.username + '@ejemplo.com',
-        rol: 'administrativo'
-      }
+    // Mapear 'username' a 'user_name' según el DTO del backend
+    const loginData = {
+      user_name: credentials.username,
+      password: credentials.password
     }
     
-    // Guardar token
-    if (response.token) {
-      localStorage.setItem('authToken', response.token)
+    // Hacer la petición al backend
+    const response = await apiClient.post('/user/login', loginData)
+    
+    console.log('✅ Login exitoso:', response)
+    
+    // Guardar token en localStorage (el backend devuelve 'access_token')
+    const token = response.access_token || response.token
+    if (token) {
+      localStorage.setItem('authToken', token)
     }
     
+    // Normalizar la respuesta para que siempre tenga 'token'
+    return {
+      ...response,
+      token: token
+    }
+  } catch (error) {
+    throw error
+  }
+}
+
+// Obtener perfil del usuario autenticado
+export const getUserProfile = async () => {
+  try {
+    const response = await apiClient.get('/user/profile')
+    console.log('✅ Perfil obtenido:', response)
     return response
   } catch (error) {
+    console.error('❌ Error al obtener perfil:', error)
     throw error
   }
 }

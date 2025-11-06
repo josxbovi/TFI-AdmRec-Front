@@ -2,15 +2,23 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { AuthProvider } from './context/AuthContext'
 import Layout from './components/Layout'
 import ProtectedRoute from './components/ProtectedRoute'
+import AdminRoute from './components/AdminRoute'
 import Home from './pages/Home'
 import About from './pages/About'
 import Login from './pages/Login'
 import Dashboard from './pages/Dashboard'
 import ClientPage from './pages/ClientPage'
 import ClienteDetalle from './pages/ClienteDetalle'
+import ProyectoDetalle from './pages/ProyectoDetalle'
+import ContratosPage from './pages/ContratosPage'
+import ContratoDetalle from './pages/ContratoDetalle'
 import NuevoUsuario from './pages/NuevoUsuario'
 import NuevoProyecto from './pages/NuevoProyecto'
 import NuevoCliente from './pages/NuevoCliente'
+import NuevoContrato from './pages/NuevoContrato'
+import NuevaFactura from './pages/NuevaFactura'
+import FacturaDetalle from './pages/FacturaDetalle'
+import ReportesPage from './pages/ReportesPage'
 import './App.css'
 
 function App() {
@@ -34,12 +42,13 @@ function App() {
               } 
             />
             
+            {/* Ruta solo para administradores */}
             <Route 
               path="/usuarios/nuevo" 
               element={
-                <ProtectedRoute>
+                <AdminRoute>
                   <NuevoUsuario />
-                </ProtectedRoute>
+                </AdminRoute>
               } 
             />
             
@@ -81,25 +90,55 @@ function App() {
             />
             
             <Route 
-              path="/contratos" 
+              path="/proyectos/:id" 
               element={
                 <ProtectedRoute>
-                  <div style={{ padding: '2rem', textAlign: 'center' }}>
-                    <h1>Módulo de Contratos</h1>
-                    <p>En construcción...</p>
-                  </div>
+                  <ProyectoDetalle />
                 </ProtectedRoute>
               } 
             />
             
             <Route 
-              path="/facturas" 
+              path="/contratos" 
               element={
                 <ProtectedRoute>
-                  <div style={{ padding: '2rem', textAlign: 'center' }}>
-                    <h1>Módulo de Facturas</h1>
-                    <p>En construcción...</p>
-                  </div>
+                  <ContratosPage />
+                </ProtectedRoute>
+              } 
+            />
+            
+            <Route 
+              path="/contratos/nuevo" 
+              element={
+                <ProtectedRoute>
+                  <NuevoContrato />
+                </ProtectedRoute>
+              } 
+            />
+            
+            <Route 
+              path="/contratos/:id" 
+              element={
+                <ProtectedRoute>
+                  <ContratoDetalle />
+                </ProtectedRoute>
+              } 
+            />
+            
+            <Route 
+              path="/facturas/nuevo" 
+              element={
+                <ProtectedRoute>
+                  <NuevaFactura />
+                </ProtectedRoute>
+              } 
+            />
+            
+            <Route 
+              path="/facturas/:id" 
+              element={
+                <ProtectedRoute>
+                  <FacturaDetalle />
                 </ProtectedRoute>
               } 
             />
@@ -107,12 +146,9 @@ function App() {
             <Route 
               path="/reportes" 
               element={
-                <ProtectedRoute>
-                  <div style={{ padding: '2rem', textAlign: 'center' }}>
-                    <h1>Módulo de Reportes</h1>
-                    <p>En construcción...</p>
-                  </div>
-                </ProtectedRoute>
+                <AdminRoute>
+                  <ReportesPage />
+                </AdminRoute>
               } 
             />
 

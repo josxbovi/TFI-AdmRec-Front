@@ -37,6 +37,9 @@ const NuevoUsuario = () => {
         let rolesData = []
         if (Array.isArray(response)) {
           rolesData = response
+        } else if (response && Array.isArray(response.records)) {
+          // El backend devuelve los roles en response.records
+          rolesData = response.records
         } else if (response && Array.isArray(response.data)) {
           rolesData = response.data
         } else if (response && Array.isArray(response.roles)) {

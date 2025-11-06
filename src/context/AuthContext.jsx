@@ -48,11 +48,25 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem('user')
   }
 
+  // Helper para verificar si el usuario es administrador
+  const isAdmin = () => {
+    if (!user || !user.rol) return false
+    return user.rol.nombre === 'Administrador'
+  }
+
+  // Helper para verificar si el usuario tiene un rol específico
+  const hasRole = (roleName) => {
+    if (!user || !user.rol) return false
+    return user.rol.nombre === roleName
+  }
+
   const value = {
     user,
     login,
     logout,
     isAuthenticated: !!user,
+    isAdmin,
+    hasRole,
     loading,
   }
 

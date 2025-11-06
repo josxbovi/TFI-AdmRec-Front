@@ -107,12 +107,6 @@ const Login = () => {
           <p>¿Olvidaste tu contraseña? <a href="#">Recuperar</a></p>
         </div>
       </div>
-
-      {/* Nota temporal para desarrollo */}
-      <div className="dev-note">
-        <strong>Nota de desarrollo:</strong> El backend aún no está conectado. 
-        Cuando esté listo, actualiza el endpoint en <code>src/services/api.js</code>
-      </div>
     </div>
   )
 }
