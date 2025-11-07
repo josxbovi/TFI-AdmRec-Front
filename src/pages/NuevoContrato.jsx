@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { getClienteByCuit, createContrato } from '../services/api'
+import { getClienteByCuit, createContrato, createAlerta } from '../services/api'
 import Card from '../components/Card'
 import Button from '../components/Button'
 import Loading from '../components/Loading'
@@ -162,7 +162,52 @@ const NuevoContrato = () => {
         montoFinal
       })
 
-      await createContrato(contratoData)
+      const contratoCreado = await createContrato(contratoData)
+      console.log('✅ Contrato creado:', contratoCreado)
+
+      // Generar alerta automática si el contrato vence en menos de 30 días
+      try {
+        const fechaFin = new Date(formData.fechaFin)
+        const hoy = new Date()
+        const diferenciaDias = Math.ceil((fechaFin - hoy) / (1000 * 60 * 60 * 24))
+        
+        console.log('📅 Días hasta vencimiento:', diferenciaDias)
+
+        if (diferenciaDias <= 30 && diferenciaDias > 0) {
+          const tipoAlerta = diferenciaDias <= 7 ? 'urgente' : 'proximo_vencimiento'
+          const mensajeAlerta = diferenciaDias <= 7 
+            ? `⚠️ Contrato de ${cliente.nombre} vence en ${diferenciaDias} día${diferenciaDias !== 1 ? 's' : ''} (URGENTE)`
+            : `📅 Contrato de ${cliente.nombre} vence en ${diferenciaDias} días`
+
+          const alertaData = {
+            mensaje: mensajeAlerta,
+            tipo_alerta: tipoAlerta,
+            fecha_alerta: new Date().toISOString(),
+            descripcion: `Contrato #${contratoCreado.id || ''} - Cliente: ${cliente.nombre} (CUIT: ${cliente.cuit}) - Vencimiento: ${new Date(fechaFin).toLocaleDateString('es-AR')}`,
+            clienteId: cliente.id
+          }
+
+          console.log('🔔 Generando alerta automática:', alertaData)
+          await createAlerta(alertaData)
+          console.log('✅ Alerta creada exitosamente')
+        } else if (diferenciaDias <= 0) {
+          // El contrato ya está vencido
+          const alertaData = {
+            mensaje: `🚨 Contrato de ${cliente.nombre} YA ESTÁ VENCIDO`,
+            tipo_alerta: 'vencido',
+            fecha_alerta: new Date().toISOString(),
+            descripcion: `Contrato #${contratoCreado.id || ''} - Cliente: ${cliente.nombre} (CUIT: ${cliente.cuit}) - Venció el: ${new Date(fechaFin).toLocaleDateString('es-AR')}`,
+            clienteId: cliente.id
+          }
+
+          console.log('🔔 Generando alerta de contrato vencido:', alertaData)
+          await createAlerta(alertaData)
+          console.log('✅ Alerta creada exitosamente')
+        }
+      } catch (alertaError) {
+        console.warn('⚠️ No se pudo crear la alerta automática:', alertaError)
+        // No bloqueamos el proceso si falla la creación de la alerta
+      }
 
       setSuccess(true)
 

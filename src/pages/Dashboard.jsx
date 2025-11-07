@@ -1,6 +1,7 @@
 import { useAuth } from '../context/AuthContext'
 import { useNavigate } from 'react-router-dom'
 import Card from '../components/Card'
+import AlertCard from '../components/AlertCard'
 import './Dashboard.css'
 
 const Dashboard = () => {
@@ -53,23 +54,29 @@ const Dashboard = () => {
       </div>
 
       <div className="dashboard-content">
-        <div className="dashboard-main">
-          <Card title="Actividad Reciente">
-            <div className="empty-state">
-              <p>📊 No hay actividad reciente</p>
-              <small>Las acciones del sistema aparecerán aquí</small>
-            </div>
-          </Card>
-
-          <Card title="Próximos Vencimientos">
-            <div className="empty-state">
-              <p>📅 No hay vencimientos próximos</p>
-              <small>Los contratos próximos a vencer aparecerán aquí</small>
-            </div>
-          </Card>
+        {/* Alertas activas - Sección destacada en la parte superior */}
+        <div className="dashboard-alerts-section">
+          <AlertCard />
         </div>
 
-        <div className="dashboard-sidebar">
+        <div className="dashboard-grid">
+          <div className="dashboard-main">
+            <Card title="Actividad Reciente">
+              <div className="empty-state">
+                <p>📊 No hay actividad reciente</p>
+                <small>Las acciones del sistema aparecerán aquí</small>
+              </div>
+            </Card>
+
+            <Card title="Próximos Vencimientos">
+              <div className="empty-state">
+                <p>📅 No hay vencimientos próximos</p>
+                <small>Los contratos próximos a vencer aparecerán aquí</small>
+              </div>
+            </Card>
+          </div>
+
+          <div className="dashboard-sidebar">
           <Card title="Accesos Rápidos">
             <div className="quick-actions">
               {/* Solo administradores pueden crear usuarios */}
@@ -123,14 +130,23 @@ const Dashboard = () => {
             </div>
           </Card>
 
-          <Card title="Notificaciones">
-            <div className="notifications">
-              <div className="empty-state">
-                <p>🔔 No hay notificaciones</p>
-                <small>Las alertas aparecerán aquí</small>
+          <Card title="Estado del Sistema">
+            <div className="system-status">
+              <div className="status-item">
+                <span className="status-icon">✅</span>
+                <span className="status-text">Sistema operativo</span>
+              </div>
+              <div className="status-item">
+                <span className="status-icon">🔒</span>
+                <span className="status-text">Seguridad activa</span>
+              </div>
+              <div className="status-item">
+                <span className="status-icon">💾</span>
+                <span className="status-text">Respaldo automático</span>
               </div>
             </div>
           </Card>
+          </div>
         </div>
       </div>
     </div>

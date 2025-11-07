@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { createFactura, getClienteByCuit } from '../services/api';
+import { createFactura, getClienteByCuit, createAlerta } from '../services/api';
 import Card from '../components/Card';
 import Button from '../components/Button';
 import Loading from '../components/Loading';
@@ -174,7 +174,32 @@ const NuevaFactura = () => {
         montoFinal
       });
       
-      await createFactura(facturaData);
+      const facturaCreada = await createFactura(facturaData);
+      console.log('✅ Factura creada:', facturaCreada);
+      
+      // Generar alerta automática si el estado es "pendiente" o "vencida"
+      try {
+        if (formData.estado_pago.toLowerCase() === 'pendiente' || formData.estado_pago.toLowerCase() === 'vencida') {
+          const tipoAlerta = formData.estado_pago.toLowerCase() === 'vencida' ? 'pago_vencido' : 'pago_pendiente'
+          const emoji = formData.estado_pago.toLowerCase() === 'vencida' ? '🚨' : '💰'
+          const mensajeAlerta = `${emoji} Factura #${facturaCreada.id || ''} - ${formData.estado_pago} - ${clienteData.nombre}`
+          
+          const alertaData = {
+            mensaje: mensajeAlerta,
+            tipo_alerta: tipoAlerta,
+            fecha_alerta: new Date().toISOString(),
+            descripcion: `Factura #${facturaCreada.id || ''} por $${montoFinal > 0 ? montoFinal.toLocaleString('es-AR') : parseFloat(formData.monto).toLocaleString('es-AR')} - Cliente: ${clienteData.nombre} (CUIT: ${clienteData.cuit}) - Proyecto: ${selectedProyecto?.nombre_proyecto || 'Sin proyecto'} - Estado: ${formData.estado_pago}`,
+            clienteId: formData.clienteId
+          }
+
+          console.log('🔔 Generando alerta automática:', alertaData)
+          await createAlerta(alertaData)
+          console.log('✅ Alerta creada exitosamente')
+        }
+      } catch (alertaError) {
+        console.warn('⚠️ No se pudo crear la alerta automática:', alertaError)
+        // No bloqueamos el proceso si falla la creación de la alerta
+      }
       
       setSuccess(true);
       setTimeout(() => {
