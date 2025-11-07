@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { getClienteById, getAllContratos, getAllFacturas, updateCliente } from '../services/api';
+import { getClienteById, getAllContratos, getAllFacturas, updateCliente, getAllAlertas, deleteAlerta } from '../services/api';
 import Card from '../components/Card';
 import { UnifiedTable } from '../components/UnifiedTable';
 import Loading from '../components/Loading';
@@ -157,6 +157,9 @@ const ClienteDetalle = () => {
     const [saving, setSaving] = useState(false);
     const [error, setError] = useState(null);
     const [success, setSuccess] = useState(false);
+    const [alertas, setAlertas] = useState([]);
+    const [loadingAlertas, setLoadingAlertas] = useState(false);
+    const [resolvingAlertId, setResolvingAlertId] = useState(null);
 
     useEffect(() => {
         const fetchCliente = async () => {
@@ -244,6 +247,103 @@ const ClienteDetalle = () => {
 
         fetchCliente();
     }, [id]);
+
+    // Cargar alertas del cliente
+    useEffect(() => {
+        const fetchAlertas = async () => {
+            try {
+                setLoadingAlertas(true);
+                
+                const response = await getAllAlertas();
+                console.log('🔍 [ClienteDetalle] Respuesta completa de alertas:', response);
+                
+                // Manejar diferentes formatos de respuesta
+                let alertasData = [];
+                if (Array.isArray(response)) {
+                    alertasData = response;
+                } else if (response && Array.isArray(response.records)) {
+                    alertasData = response.records;
+                } else if (response && Array.isArray(response.data?.records)) {
+                    alertasData = response.data.records;
+                } else if (response && Array.isArray(response.data)) {
+                    alertasData = response.data;
+                }
+                
+                console.log('📋 [ClienteDetalle] Alertas parseadas:', alertasData);
+                console.log('🔑 [ClienteDetalle] ID del cliente actual:', id, '(type:', typeof id, ')');
+                
+                // Log de cada alerta para debugging
+                alertasData.forEach((alerta, index) => {
+                    console.log(`📌 Alerta ${index + 1}:`, {
+                        id: alerta.id,
+                        clienteId: alerta.cliente?.id,
+                        clienteNombre: alerta.cliente?.nombre,
+                        mensaje: alerta.mensaje,
+                        descripcion: alerta.descripcion
+                    });
+                });
+                
+                // Filtrar alertas del cliente actual
+                const clienteIdNum = parseInt(id);
+                
+                const alertasDelCliente = alertasData.filter(alerta => {
+                    // Las alertas tienen un objeto 'cliente' con 'id' dentro
+                    const alertaClienteId = alerta.cliente?.id;
+                    const match = alertaClienteId === clienteIdNum || 
+                                  parseInt(alertaClienteId) === clienteIdNum;
+                    
+                    console.log(`🔍 Comparando: alerta.cliente.id=${alertaClienteId} con id=${id} -> match=${match}`);
+                    return match;
+                });
+                
+                console.log('✅ [ClienteDetalle] Alertas filtradas para el cliente:', alertasDelCliente);
+                
+                // Ordenar por fecha (más recientes primero)
+                alertasDelCliente.sort((a, b) => new Date(b.fecha_alerta) - new Date(a.fecha_alerta));
+                
+                setAlertas(alertasDelCliente);
+            } catch (err) {
+                console.error('❌ Error al cargar alertas del cliente:', err);
+                // No mostramos error para no molestar al usuario si las alertas fallan
+            } finally {
+                setLoadingAlertas(false);
+            }
+        };
+
+        if (id) {
+            fetchAlertas();
+        }
+    }, [id]);
+
+    const handleResolverAlerta = async (alertaId) => {
+        try {
+            setResolvingAlertId(alertaId);
+            console.log('🔔 Resolviendo alerta:', alertaId);
+            
+            await deleteAlerta(alertaId);
+            
+            // Actualizar la lista de alertas eliminando la resuelta
+            setAlertas(prev => prev.filter(alerta => alerta.id !== alertaId));
+            
+            console.log('✅ Alerta resuelta exitosamente');
+        } catch (err) {
+            console.error('❌ Error al resolver alerta:', err);
+            setError('No se pudo resolver la alerta. Intenta nuevamente.');
+        } finally {
+            setResolvingAlertId(null);
+        }
+    };
+
+    const getPrioridadAlerta = (tipoAlerta) => {
+        const tipo = tipoAlerta?.toLowerCase() || '';
+        if (tipo.includes('urgente') || tipo.includes('vencido')) {
+            return { clase: 'urgente', emoji: '🚨', label: 'URGENTE' };
+        }
+        if (tipo.includes('pendiente') || tipo.includes('proximo')) {
+            return { clase: 'advertencia', emoji: '⚠️', label: 'ATENCIÓN' };
+        }
+        return { clase: 'info', emoji: 'ℹ️', label: 'INFO' };
+    };
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -503,6 +603,63 @@ const ClienteDetalle = () => {
                             </Button>
                         </div>
                     </form>
+                )}
+            </Card>
+
+            {/* Sección de Alertas del Cliente */}
+            <Card title={`🔔 Alertas del Cliente (${alertas.length})`}>
+                {loadingAlertas ? (
+                    <div className="alertas-loading">
+                        <Loading message="Cargando alertas..." />
+                    </div>
+                ) : alertas.length === 0 ? (
+                    <div className="alertas-empty">
+                        <p>✅ No hay alertas para este cliente</p>
+                        <small>Todo está en orden</small>
+                    </div>
+                ) : (
+                    <div className="cliente-alertas-list">
+                        {alertas.map((alerta) => {
+                            const prioridad = getPrioridadAlerta(alerta.tipo_alerta);
+                            
+                            return (
+                                <div 
+                                    key={alerta.id} 
+                                    className={`cliente-alerta-item ${prioridad.clase}`}
+                                >
+                                    <div className="alerta-header">
+                                        <div className="alerta-priority">
+                                            <span className="priority-emoji">{prioridad.emoji}</span>
+                                            <span className="priority-label">{prioridad.label}</span>
+                                        </div>
+                                        <span className="alerta-date">
+                                            {new Date(alerta.fecha_alerta).toLocaleDateString('es-AR', {
+                                                day: '2-digit',
+                                                month: '2-digit',
+                                                year: 'numeric'
+                                            })}
+                                        </span>
+                                    </div>
+                                    
+                                    <div className="alerta-body">
+                                        <h4 className="alerta-mensaje">{alerta.mensaje}</h4>
+                                        <p className="alerta-descripcion">{alerta.descripcion}</p>
+                                    </div>
+                                    
+                                    <div className="alerta-footer">
+                                        <Button
+                                            variant="secondary"
+                                            size="small"
+                                            onClick={() => handleResolverAlerta(alerta.id)}
+                                            disabled={resolvingAlertId === alerta.id}
+                                        >
+                                            {resolvingAlertId === alerta.id ? 'Resolviendo...' : '✓ Marcar como resuelta'}
+                                        </Button>
+                                    </div>
+                                </div>
+                            );
+                        })}
+                    </div>
                 )}
             </Card>
 
