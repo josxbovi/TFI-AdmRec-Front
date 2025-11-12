@@ -64,6 +64,13 @@ const NuevaFactura = () => {
         return;
       }
 
+      // Verificar que el cliente esté activo
+      if (cliente.estado?.toLowerCase() !== 'activo') {
+        setError('⚠️ Este cliente está INACTIVO. No se pueden crear facturas para clientes dados de baja.');
+        setClienteData(null);
+        return;
+      }
+
       setClienteData(cliente);
       setFormData(prev => ({ ...prev, clienteId: cliente.id }));
       

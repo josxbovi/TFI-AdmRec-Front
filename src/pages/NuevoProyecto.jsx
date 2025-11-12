@@ -54,6 +54,14 @@ const NuevoProyecto = () => {
     try {
       const clienteData = await getClienteByCuit(clienteCuit)
       console.log('✅ Cliente encontrado:', clienteData)
+      
+      // Verificar que el cliente esté activo
+      if (clienteData.estado?.toLowerCase() !== 'activo') {
+        setError('⚠️ Este cliente está INACTIVO. No se pueden crear proyectos para clientes dados de baja.')
+        setCliente(null)
+        return
+      }
+      
       setCliente(clienteData)
     } catch (err) {
       console.error('❌ Error al buscar cliente:', err)

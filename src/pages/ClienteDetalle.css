@@ -91,6 +91,23 @@
     font-weight: 500;
 }
 
+.warning-message {
+    background-color: #fff3cd;
+    color: #856404;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    border: 1px solid #ffeaa7;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.warning-message strong {
+    font-weight: 700;
+}
+
 /* Card actions */
 .card-actions {
     display: flex;

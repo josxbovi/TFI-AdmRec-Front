@@ -402,6 +402,80 @@ const ClienteDetalle = () => {
         setError(null);
     };
 
+    const handleDarDeBaja = async () => {
+        if (!window.confirm('¿Está seguro que desea dar de baja este cliente? El cliente quedará inactivo y no podrá operar con él.')) {
+            return;
+        }
+
+        setError(null);
+        setSaving(true);
+
+        try {
+            // Solo enviar campos permitidos por el backend
+            const updateData = {
+                nombre: clienteData.nombre,
+                email: clienteData.email,
+                telefono: clienteData.telefono,
+                direccion: clienteData.direccion,
+                cuit: clienteData.cuit,
+                estado: 'inactivo', // ← Cambiar a inactivo
+                descuento: parseFloat(clienteData.descuento || 0)
+            };
+
+            console.log('🚫 Dando de baja cliente:', updateData);
+            
+            await updateCliente(id, updateData);
+            
+            setClienteData(prev => ({ ...prev, estado: 'inactivo' }));
+            setOriginalData(prev => ({ ...prev, estado: 'inactivo' }));
+            setSuccess(true);
+            
+            setTimeout(() => setSuccess(false), 3000);
+        } catch (err) {
+            console.error('❌ Error al dar de baja cliente:', err);
+            setError(err.message || 'Error al dar de baja el cliente');
+        } finally {
+            setSaving(false);
+        }
+    };
+
+    const handleReactivar = async () => {
+        if (!window.confirm('¿Está seguro que desea reactivar este cliente?')) {
+            return;
+        }
+
+        setError(null);
+        setSaving(true);
+
+        try {
+            // Solo enviar campos permitidos por el backend
+            const updateData = {
+                nombre: clienteData.nombre,
+                email: clienteData.email,
+                telefono: clienteData.telefono,
+                direccion: clienteData.direccion,
+                cuit: clienteData.cuit,
+                estado: 'activo', // ← Cambiar a activo
+                descuento: parseFloat(clienteData.descuento || 0)
+            };
+
+            console.log('✅ Reactivando cliente:', updateData);
+            
+            await updateCliente(id, updateData);
+            
+            setClienteData(prev => ({ ...prev, estado: 'activo' }));
+            setOriginalData(prev => ({ ...prev, estado: 'activo' }));
+            setSuccess(true);
+            
+            setTimeout(() => setSuccess(false), 3000);
+        } catch (err) {
+            console.error('❌ Error al reactivar cliente:', err);
+            setError(err.message || 'Error al reactivar el cliente');
+        } finally {
+            setSaving(false);
+        }
+    };
+
     if (loading) {
         return (
             <div className="cliente-detalle-container">
@@ -442,6 +516,12 @@ const ClienteDetalle = () => {
             {success && (
                 <div className="success-message">
                     ✅ Cliente actualizado exitosamente
+                </div>
+            )}
+
+            {clienteData?.estado === 'inactivo' && (
+                <div className="warning-message">
+                    ⚠️ <strong>Cliente Inactivo:</strong> Este cliente está dado de baja. No se pueden crear nuevos contratos, facturas ni proyectos para este cliente.
                 </div>
             )}
 
@@ -488,6 +568,23 @@ const ClienteDetalle = () => {
                             <Button onClick={() => setIsEditing(true)}>
                                 ✏️ Editar Cliente
                             </Button>
+                            {clienteData.estado === 'activo' ? (
+                                <Button 
+                                    variant="danger" 
+                                    onClick={handleDarDeBaja}
+                                    disabled={saving}
+                                >
+                                    🚫 Dar de Baja
+                                </Button>
+                            ) : (
+                                <Button 
+                                    variant="success" 
+                                    onClick={handleReactivar}
+                                    disabled={saving}
+                                >
+                                    ✅ Reactivar Cliente
+                                </Button>
+                            )}
                         </div>
                     </>
                 ) : (
