@@ -159,21 +159,19 @@ export const UnifiedTable = ({
             pagination.pageIndex !== getPageCount() - 1 && (
               <button
                 onClick={() => setPageIndex(pagination.pageIndex)}
-                className="px-3 py-1 rounded-md bg-purple-500 text-white"
+                className="pagination-button active"
               >
                 {pagination.pageIndex + 1}
               </button>
             )}
           {getPageCount() > 1 && (
-            <span className="px-3 py-1 text-gray-600">...</span>
+            <span className="page-separator">...</span>
           )}
           {getPageCount() > 1 && (
             <button
               onClick={() => setPageIndex(getPageCount() - 1)}
-              className={`px-3 py-1 rounded-md ${
-                pagination.pageIndex === getPageCount() - 1
-                  ? "bg-purple-500 text-white"
-                  : "border"
+              className={`pagination-button ${
+                pagination.pageIndex === getPageCount() - 1 ? "active" : ""
               }`}
             >
               {getPageCount()}
@@ -183,7 +181,7 @@ export const UnifiedTable = ({
         <button
           onClick={() => nextPage()}
           disabled={!getCanNextPage()}
-          className="px-3 py-1 border rounded-md text-gray-600 disabled:text-gray-400 disabled:cursor-not-allowed hover:bg-gray-50"
+          className="pagination-button"
         >
           &gt;
         </button>
