@@ -5,12 +5,13 @@
 }
 
 .header {
-  background-color: #1a1a1a;
-  padding: 1rem 2rem;
+  background-color: #00094a;
+  padding: 1rem 1rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
   position: sticky;
   top: 0;
   z-index: 100;
+  border-radius: 10px;
 }
 
 .nav {
@@ -26,7 +27,7 @@
 }
 
 .nav-brand h2 {
-  color: #646cff;
+  color: #ffffff;
   font-size: 1.3rem;
   transition: color 0.3s;
 }
@@ -37,6 +38,7 @@
 
 .nav-links {
   display: flex;
+  flex-wrap: nowrap;
   list-style: none;
   gap: 1.5rem;
   align-items: center;
@@ -49,6 +51,11 @@
   font-weight: 500;
   padding: 0.5rem 1rem;
   border-radius: 6px;
+}
+
+.nav-links li {
+  display: flex;
+  flex-wrap: nowrap;
 }
 
 .nav-links a:hover {

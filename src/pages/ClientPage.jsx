@@ -121,7 +121,7 @@ const ClientPage = () => {
           variant="primary" 
           onClick={() => navigate('/clientes/nuevo')}
         >
-          ➕ Nuevo Cliente
+          + Nuevo Cliente
         </Button>
       </div>
       

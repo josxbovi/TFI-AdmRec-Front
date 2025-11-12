@@ -1,5 +1,5 @@
 .custom-card {
-  background-color: #1a1a1a;
+  background-color: #ffffff;
   border-radius: 8px;
   padding: 1.5rem;
   margin: 1rem 0;
@@ -13,7 +13,7 @@
 }
 
 .card-title {
-  color: #646cff;
+  color: #00649f;
   margin: 0 0 1rem 0;
   font-size: 1.25rem;
 }
