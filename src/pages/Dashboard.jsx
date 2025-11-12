@@ -77,75 +77,75 @@ const Dashboard = () => {
           </div>
 
           <div className="dashboard-sidebar">
-          <Card title="Accesos Rápidos">
-            <div className="quick-actions">
-              {/* Solo administradores pueden crear usuarios */}
-              {isAdmin() && (
+            <Card title="Accesos Rápidos">
+              <div className="quick-actions">
+                {/* Solo administradores pueden crear usuarios */}
+                {isAdmin() && (
+                  <button
+                    className="quick-action-btn"
+                    onClick={() => navigate("/usuarios/nuevo")}
+                  >
+                    <span>👤</span>
+                    Nuevo Usuario
+                  </button>
+                )}
                 <button
                   className="quick-action-btn"
-                  onClick={() => navigate("/usuarios/nuevo")}
+                  onClick={() => navigate("/proyectos/nuevo")}
                 >
-                  <span>👤</span>
-                  Nuevo Usuario
+                  <span>📁</span>
+                  Nuevo Proyecto
                 </button>
-              )}
-              <button
-                className="quick-action-btn"
-                onClick={() => navigate("/proyectos/nuevo")}
-              >
-                <span>📁</span>
-                Nuevo Proyecto
-              </button>
-              <button
-                className="quick-action-btn"
-                onClick={() => navigate("/clientes/nuevo")}
-              >
-                <span>➕</span>
-                Nuevo Cliente
-              </button>
-              <button
-                className="quick-action-btn"
-                onClick={() => navigate("/contratos/nuevo")}
-              >
-                <span>📄</span>
-                Nuevo Contrato
-              </button>
-              <button
-                className="quick-action-btn"
-                onClick={() => navigate("/facturas/nuevo")}
-              >
-                <span>📝</span>
-                Nueva Factura
-              </button>
-              {/* Solo administradores pueden ver reportes */}
-              {isAdmin() && (
                 <button
                   className="quick-action-btn"
-                  onClick={() => navigate("/reportes")}
+                  onClick={() => navigate("/clientes/nuevo")}
                 >
-                  <span>📊</span>
-                  Ver Reportes
+                  <span>➕</span>
+                  Nuevo Cliente
                 </button>
-              )}
-            </div>
-          </Card>
+                <button
+                  className="quick-action-btn"
+                  onClick={() => navigate("/contratos/nuevo")}
+                >
+                  <span>📋</span>
+                  Nuevo Contrato
+                </button>
+                <button
+                  className="quick-action-btn"
+                  onClick={() => navigate("/facturas/nuevo")}
+                >
+                  <span>📝</span>
+                  Nueva Factura
+                </button>
+                {/* Solo administradores pueden ver reportes */}
+                {isAdmin() && (
+                  <button
+                    className="quick-action-btn"
+                    onClick={() => navigate("/reportes")}
+                  >
+                    <span>📊</span>
+                    Ver Reportes
+                  </button>
+                )}
+              </div>
+            </Card>
 
-          <Card title="Estado del Sistema">
-            <div className="system-status">
-              <div className="status-item">
-                <span className="status-icon">✅</span>
-                <span className="status-text">Sistema operativo</span>
+            <Card title="Estado del Sistema">
+              <div className="system-status">
+                <div className="status-item">
+                  <span className="status-icon">✅</span>
+                  <span className="status-text">Sistema operativo</span>
+                </div>
+                <div className="status-item">
+                  <span className="status-icon">🔒</span>
+                  <span className="status-text">Seguridad activa</span>
+                </div>
+                <div className="status-item">
+                  <span className="status-icon">💾</span>
+                  <span className="status-text">Respaldo automático</span>
+                </div>
               </div>
-              <div className="status-item">
-                <span className="status-icon">🔒</span>
-                <span className="status-text">Seguridad activa</span>
-              </div>
-              <div className="status-item">
-                <span className="status-icon">💾</span>
-                <span className="status-text">Respaldo automático</span>
-              </div>
-            </div>
-          </Card>
+            </Card>
           </div>
         </div>
       </div>

@@ -74,7 +74,7 @@ export const UnifiedTable = ({
           type="text"
           value={globalFilter ?? ""}
           onChange={(e) => setGlobalFilter(e.target.value)}
-          placeholder="Q. Search"
+          placeholder="Buscar..."
           className="unified-search-input w-full p-3 pl-10 border rounded-lg text-lg"
         />
         <Search
