@@ -54,6 +54,11 @@ const ClientPage = () => {
       accessorKey: "nombre",
       header: "Nombre",
       enableSorting: true,
+      cell: ({ row }) => (
+        <span className={row.original.estado === 'inactivo' ? 'cliente-inactivo-text' : ''}>
+          {row.original.nombre}
+        </span>
+      ),
     },
     {
       accessorKey: "cuit",
@@ -70,13 +75,22 @@ const ClientPage = () => {
       enableSorting: true,
     },
     {
+      accessorKey: "descuento",
+      header: "Descuento",
+      cell: ({ row }) => (
+        <span className="descuento-cell">
+          {row.original.descuento ? `🎁 ${parseFloat(row.original.descuento)}%` : '-'}
+        </span>
+      ),
+    },
+    {
       accessorKey: "estado",
       header: "Estado",
       cell: ({ row }) => (
         <span 
           className={`estado-badge ${row.original.estado === 'activo' ? 'activo' : 'inactivo'}`}
         >
-          {row.original.estado || 'N/A'}
+          {row.original.estado === 'activo' ? '✅ Activo' : '🚫 Inactivo'}
         </span>
       ),
     },

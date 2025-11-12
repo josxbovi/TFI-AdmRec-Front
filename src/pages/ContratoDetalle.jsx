@@ -140,11 +140,20 @@ const ContratoDetalle = () => {
       
       // Generar o actualizar alerta si el contrato vence en menos de 30 días
       try {
+        // Normalizar fechas: solo usar fecha sin hora para cálculo preciso
         const fechaFin = new Date(formData.fechaFin)
+        fechaFin.setHours(0, 0, 0, 0) // Resetear a medianoche local
+        
         const hoy = new Date()
+        hoy.setHours(0, 0, 0, 0) // Resetear a medianoche local
+        
         const diferenciaDias = Math.ceil((fechaFin - hoy) / (1000 * 60 * 60 * 24))
         
-        console.log('📅 Días hasta vencimiento (después de actualizar):', diferenciaDias)
+        console.log('📅 Cálculo de vencimiento (actualización):', {
+          fechaFin: fechaFin.toLocaleDateString('es-AR'),
+          hoy: hoy.toLocaleDateString('es-AR'),
+          diferenciaDias
+        })
 
         if (diferenciaDias <= 30 && diferenciaDias > 0) {
           const tipoAlerta = diferenciaDias <= 7 ? 'urgente' : 'proximo_vencimiento'
