@@ -530,29 +530,29 @@ const ClienteDetalle = () => {
             <Card title="Información del Cliente">
                 {!isEditing ? (
                     <>
-                        <div className="cliente-info-grid">
-                            <div className="info-item">
-                                <span className="info-label">Nombre:</span>
-                                <span className="info-value">{clienteData.nombre}</span>
-                            </div>
-                            <div className="info-item">
-                                <span className="info-label">CUIT:</span>
-                                <span className="info-value">{clienteData.cuit}</span>
-                            </div>
-                            <div className="info-item">
-                                <span className="info-label">Teléfono:</span>
-                                <span className="info-value">{clienteData.telefono}</span>
-                            </div>
-                            <div className="info-item">
-                                <span className="info-label">Email:</span>
-                                <span className="info-value">{clienteData.email}</span>
-                            </div>
-                            <div className="info-item">
-                                <span className="info-label">Dirección:</span>
-                                <span className="info-value">{clienteData.direccion}</span>
-                            </div>
-                            <div className="info-item">
-                                <span className="info-label">Estado:</span>
+                <div className="cliente-info-grid">
+                    <div className="info-item">
+                        <span className="info-label">Nombre:</span>
+                        <span className="info-value">{clienteData.nombre}</span>
+                    </div>
+                    <div className="info-item">
+                        <span className="info-label">CUIT:</span>
+                        <span className="info-value">{clienteData.cuit}</span>
+                    </div>
+                    <div className="info-item">
+                        <span className="info-label">Teléfono:</span>
+                        <span className="info-value">{clienteData.telefono}</span>
+                    </div>
+                    <div className="info-item">
+                        <span className="info-label">Email:</span>
+                        <span className="info-value">{clienteData.email}</span>
+                    </div>
+                    <div className="info-item">
+                        <span className="info-label">Dirección:</span>
+                        <span className="info-value">{clienteData.direccion}</span>
+                    </div>
+                    <div className="info-item">
+                        <span className="info-label">Estado:</span>
                                 <span className={`estado-badge ${clienteData.estado === 'activo' ? 'activo' : 'inactivo'}`}>
                                     {clienteData.estado}
                                 </span>
@@ -752,8 +752,8 @@ const ClienteDetalle = () => {
                                         >
                                             {resolvingAlertId === alerta.id ? 'Resolviendo...' : '✓ Marcar como resuelta'}
                                         </Button>
-                                    </div>
-                                </div>
+                    </div>
+                </div>
                             );
                         })}
                     </div>
@@ -790,11 +790,11 @@ const ClienteDetalle = () => {
 
             <Card title={`Facturas (${clienteData.facturas?.length || 0})`}>
                 {clienteData.facturas && clienteData.facturas.length > 0 ? (
-                    <UnifiedTable
+                <UnifiedTable
                         data={clienteData.facturas}
                         columns={getFacturaColumns(navigate)}
                         tableTitle=""
-                    />
+                />
                 ) : (
                     <div className="empty-state">
                         <p>📄 Este cliente no tiene facturas asociadas</p>

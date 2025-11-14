@@ -102,10 +102,6 @@ const Login = () => {
             {loading ? 'Iniciando sesión...' : 'Iniciar Sesión'}
           </button>
         </form>
-
-        <div className="login-footer">
-          <p>¿Olvidaste tu contraseña? <a href="#">Recuperar</a></p>
-        </div>
       </div>
     </div>
   )

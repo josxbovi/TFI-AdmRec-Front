@@ -16,6 +16,14 @@ const ClientForm = ({ onSubmit, isLoading }) => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     
+    // Validar CUIT - solo números
+    if (name === 'cuit') {
+      // Permitir solo números, eliminar cualquier otro carácter
+      const numericValue = value.replace(/\D/g, '');
+      setFormData((prev) => ({ ...prev, [name]: numericValue }));
+      return;
+    }
+    
     // Validar descuento entre 0 y 100
     if (name === 'descuento') {
       const numValue = parseFloat(value);
@@ -66,10 +74,14 @@ const ClientForm = ({ onSubmit, isLoading }) => {
             name="cuit"
             value={formData.cuit}
             onChange={handleChange}
-            placeholder="Ej: 20-12345678-9"
+            placeholder="Ej: 20123456789"
             disabled={isLoading}
             required
+            maxLength="11"
           />
+          <small className="form-hint">
+            Solo números, sin guiones
+          </small>
         </div>
 
         <div className="form-group">

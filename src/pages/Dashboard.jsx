@@ -243,23 +243,6 @@ const Dashboard = () => {
                 )}
               </div>
             </Card>
-
-            <Card title="Estado del Sistema">
-              <div className="system-status">
-                <div className="status-item">
-                  <span className="status-icon">✅</span>
-                  <span className="status-text">Sistema operativo</span>
-                </div>
-                <div className="status-item">
-                  <span className="status-icon">🔒</span>
-                  <span className="status-text">Seguridad activa</span>
-                </div>
-                <div className="status-item">
-                  <span className="status-icon">💾</span>
-                  <span className="status-text">Respaldo automático</span>
-                </div>
-              </div>
-            </Card>
           </div>
         </div>
       </div>

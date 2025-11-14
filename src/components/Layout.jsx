@@ -65,12 +65,6 @@ const Layout = ({ children }) => {
           ) : (
             <ul className="nav-links">
               <li>
-                <Link to="/">Inicio</Link>
-              </li>
-              <li>
-                <Link to="/about">Acerca de</Link>
-              </li>
-              <li>
                 <Link to="/login" className="btn-login-link">
                   Iniciar Sesión
                 </Link>

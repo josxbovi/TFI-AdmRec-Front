@@ -545,9 +545,26 @@ const ReportesPage = () => {
 const ReporteFacturacion = ({ data, stats }) => {
   const chartOptions = {
     responsive: true,
+    maintainAspectRatio: true,
     plugins: {
-      legend: { position: "top" },
-      title: { display: true, text: "Facturación por Estado de Pago" },
+      legend: { 
+        position: "top",
+        labels: {
+          font: { size: 12 }
+        }
+      },
+      title: { 
+        display: true, 
+        text: "📊 Facturación por Estado de Pago",
+        font: {
+          size: 18,
+          weight: "bold"
+        },
+        padding: {
+          top: 10,
+          bottom: 20
+        }
+      },
     },
   };
 
@@ -620,17 +637,51 @@ const ReporteFacturacion = ({ data, stats }) => {
 const ReporteClientes = ({ data, topClientes, stats }) => {
   const pieOptions = {
     responsive: true,
+    maintainAspectRatio: true,
     plugins: {
-      legend: { position: "top" },
-      title: { display: true, text: "Distribución de Clientes por Estado" },
+      legend: { 
+        position: "top",
+        labels: {
+          font: { size: 12 }
+        }
+      },
+      title: { 
+        display: true, 
+        text: "👥 Distribución de Clientes por Estado",
+        font: {
+          size: 16,
+          weight: "bold"
+        },
+        padding: {
+          top: 10,
+          bottom: 20
+        }
+      },
     },
   };
 
   const barOptions = {
     responsive: true,
+    maintainAspectRatio: true,
     plugins: {
-      legend: { position: "top" },
-      title: { display: true, text: "Top 5 Clientes por Facturación" },
+      legend: { 
+        position: "top",
+        labels: {
+          font: { size: 12 }
+        }
+      },
+      title: { 
+        display: true, 
+        text: "🏆 Top 5 Clientes por Facturación",
+        font: {
+          size: 16,
+          weight: "bold"
+        },
+        padding: {
+          top: 10,
+          bottom: 20
+        }
+      },
     },
     indexAxis: "y",
   };
@@ -683,9 +734,26 @@ const ReporteClientes = ({ data, topClientes, stats }) => {
 const ReporteContratos = ({ data, stats }) => {
   const pieOptions = {
     responsive: true,
+    maintainAspectRatio: true,
     plugins: {
-      legend: { position: "top" },
-      title: { display: true, text: "Contratos por Estado" },
+      legend: { 
+        position: "top",
+        labels: {
+          font: { size: 12 }
+        }
+      },
+      title: { 
+        display: true, 
+        text: "📋 Distribución de Contratos por Estado",
+        font: {
+          size: 16,
+          weight: "bold"
+        },
+        padding: {
+          top: 10,
+          bottom: 20
+        }
+      },
     },
   };
 
