@@ -148,6 +148,10 @@ const NuevaFactura = () => {
       setError('El estado de pago es obligatorio');
       return false;
     }
+    if (!formData.proyectoId) {
+      setError('Debe seleccionar un proyecto asociado');
+      return false;
+    }
     return true;
   };
 
@@ -170,7 +174,7 @@ const NuevaFactura = () => {
         estado_pago: formData.estado_pago,
         descripcion: formData.descripcion || '',
         clienteId: formData.clienteId,
-        proyectoId: formData.proyectoId || null // Puede ser null
+        proyectoId: formData.proyectoId // Obligatorio
       };
 
       console.log('📄 Enviando factura:', facturaData);
@@ -195,7 +199,7 @@ const NuevaFactura = () => {
             mensaje: mensajeAlerta,
             tipo_alerta: tipoAlerta,
             fecha_alerta: new Date().toISOString(),
-            descripcion: `Factura #${facturaCreada.id || ''} por $${montoFinal > 0 ? montoFinal.toLocaleString('es-AR') : parseFloat(formData.monto).toLocaleString('es-AR')} - Cliente: ${clienteData.nombre} (CUIT: ${clienteData.cuit}) - Proyecto: ${selectedProyecto?.nombre_proyecto || 'Sin proyecto'} - Estado: ${formData.estado_pago}`,
+            descripcion: `Factura #${facturaCreada.id || ''} por $${montoFinal > 0 ? montoFinal.toLocaleString('es-AR') : parseFloat(formData.monto).toLocaleString('es-AR')} - Cliente: ${clienteData.nombre} (CUIT: ${clienteData.cuit}) - Proyecto: ${selectedProyecto?.nombre_proyecto} - Estado: ${formData.estado_pago}`,
             clienteId: formData.clienteId
           }
 
@@ -278,25 +282,9 @@ const NuevaFactura = () => {
             </div>
           </Card>
 
-          <Card title="Paso 2: Seleccionar Proyecto (Opcional)">
+          <Card title="Paso 2: Seleccionar Proyecto *">
             {proyectos.length > 0 ? (
               <div className="proyectos-list">
-                <div className="proyecto-option" onClick={() => handleSelectProyecto(null)}>
-                  <div className="proyecto-radio">
-                    <input 
-                      type="radio" 
-                      name="proyecto" 
-                      id="proyecto-none"
-                      checked={selectedProyecto === null}
-                      readOnly
-                    />
-                  </div>
-                  <label htmlFor="proyecto-none" className="proyecto-label">
-                    <strong>Sin proyecto asociado</strong>
-                    <span className="proyecto-description">La factura no estará asociada a ningún proyecto específico</span>
-                  </label>
-                </div>
-
                 {proyectos.map((proyecto) => (
                   <div 
                     key={proyecto.id} 
@@ -324,10 +312,9 @@ const NuevaFactura = () => {
               </div>
             ) : (
               <div className="no-proyectos">
-                <p>Este cliente no tiene proyectos asociados.</p>
-                <Button onClick={() => handleSelectProyecto(null)}>
-                  Continuar sin proyecto
-                </Button>
+                <p>⚠️ Este cliente no tiene proyectos asociados.</p>
+                <p>No es posible crear una factura sin un proyecto asociado.</p>
+                <p className="hint">Por favor, crea primero un proyecto para este cliente.</p>
               </div>
             )}
 
@@ -351,11 +338,7 @@ const NuevaFactura = () => {
                   🎁 <strong>Descuento del cliente:</strong> {clienteData.descuento}%
                 </p>
               )}
-              {selectedProyecto ? (
-                <p><strong>Proyecto:</strong> {selectedProyecto.nombre_proyecto}</p>
-              ) : (
-                <p><strong>Proyecto:</strong> Sin proyecto asociado</p>
-              )}
+              <p><strong>Proyecto:</strong> {selectedProyecto?.nombre_proyecto}</p>
             </div>
           </Card>
 

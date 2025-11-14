@@ -111,8 +111,15 @@
 }
 
 .no-proyectos p {
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
   font-size: 1.1rem;
+}
+
+.no-proyectos p.hint {
+  color: #3498db;
+  font-size: 0.95rem;
+  font-style: italic;
+  margin-top: 1rem;
 }
 
 /* Selection info */
